@@ -1,27 +1,25 @@
 using System;
 using System.Windows.Forms;
+using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
-using TSG = Tekla.Structures.Geometry3d;
 
-namespace BeamApplication
+namespace BeamApplication;
+
+public partial class Form1 : Form
 {
-    public partial class Form1 : Form
+    public Form1()
     {
-        public Form1()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Model myModel = new Model();
+    private void button1_Click(object sender, EventArgs e)
+    {
+        var myModel = new Model();
 
-            Beam myBeam = new Beam(new TSG.Point(1000, 1000, 1000),
-                                    new TSG.Point(6000, 6000, 1000));
-            myBeam.Material.MaterialString = "S235JR";
-            myBeam.Profile.ProfileString = "HEA400";
-            myBeam.Insert();
-            myModel.CommitChanges();
-        }
+        var myBeam = new Beam(new Point(1000, 1000, 1000), new Point(6000, 6000, 10000));
+        myBeam.Material.MaterialString = "S235JR";
+        myBeam.Profile.ProfileString = "W24X62";
+        var inserted = myBeam.Insert();
+        myModel.CommitChanges();
     }
 }
